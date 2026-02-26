@@ -1,0 +1,25 @@
+name: Ejecutar Bot Deportivo 🤖
+
+on:
+  schedule:
+    - cron: '0 7 * * *'
+  workflow_dispatch: 
+jobs:
+  mandar-mensajes:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: 1. Descargar el código
+      uses: actions/checkout@v3
+
+    - name: 2. Preparar el ordenador (Node.js)
+      uses: actions/setup-node@v3
+      with:
+        node-version: '18'
+
+    - name: 3. Ejecutar nuestro Bot 
+      env:
+        API_KEY_NBA: ${{ secrets.API_KEY_NBA }}
+        API_KEY_FUTBOL: ${{ secrets.API_KEY_FUTBOL }}
+        TOKEN_TELEGRAM: ${{ secrets.TOKEN_TELEGRAM }}
+      run: node bot_final.js
